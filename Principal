@@ -1,0 +1,100 @@
+public class Principal {
+    static Cliente[] clientes = new Cliente[10];
+    static ItemMenu[] menu = new ItemMenu[10];
+    static Pedido[] pedidos = new Pedido[10];
+    static int clienteCount = 0;
+    static int pedidoCount = 0;
+    static Pedido carrinhoAtual;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        menu[0] = new ItemMenu("Pizza Margherita", "Pizza", 25.00);
+        menu[1] = new ItemMenu("Hambúrguer", "Sanduíche", 15.00);
+        menu[2] = new ItemMenu("Salada Caesar", "Salada", 12.00);
+
+        System.out.println("Bem-vindo ao Sabor Gourmet!");
+        System.out.println("Por favor, cadastre-se.");
+        System.out.println("======================");
+        System.out.println("Nome:");
+        String nome = scanner.nextLine();
+        System.out.println("Endereço:");
+        String endereco = scanner.nextLine();
+        System.out.println("Telefone:");
+        String telefone = scanner.nextLine();
+        System.out.println("Email:");
+        String email = scanner.nextLine();
+        System.out.println("Senha:");
+        String senha = scanner.nextLine();
+        System.out.println("======================");
+
+        Cliente cliente = new Cliente(nome, endereco, telefone, email, senha);
+        clientes[clienteCount] = cliente;
+        clienteCount++;
+
+        while (true) {
+            System.out.println("Escolha uma opção:");
+            System.out.println("1 – Visualizar Menu");
+            System.out.println("2 – Adicionar Item ao Carrinho");
+            System.out.println("3 – Ver carrinho");
+            System.out.println("4 – Finalizar Pedido");
+            System.out.println("5 – Acompanhar Status do Pedido");
+            System.out.println("6 – Sair");
+            System.out.print("Opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir a nova linha
+
+            if (opcao == 1) {
+                System.out.println("=========Menu=========");
+                for (ItemMenu item : menu) {
+                    if (item != null) {
+                        item.getDetalhesItem();
+                    }
+                }
+                System.out.println("======================");
+            } else if (opcao == 2) {
+                if (carrinhoAtual == null) {
+                    carrinhoAtual = new Pedido(cliente);
+                }
+                System.out.println("Escolha o número do item para adicionar ao carrinho:");
+                for (int i = 0; i < menu.length; i++) {
+                    if (menu[i] != null) {
+                        System.out.println((i + 1) + " - " + menu[i].nome);
+                    }
+                }
+                int itemNumero = scanner.nextInt();
+                scanner.nextLine(); // Consumir a nova linha
+                if (itemNumero > 0 && itemNumero <= menu.length && menu[itemNumero - 1] != null) {
+                    carrinhoAtual.adicionarItem(menu[itemNumero - 1]);
+                    System.out.println(menu[itemNumero - 1].nome + " adicionado ao carrinho.");
+                } else {
+                    System.out.println("Item inválido.");
+                }
+            } else if (opcao == 3) {
+                if (carrinhoAtual != null) {
+                    carrinhoAtual.visualizarPedido();
+                } else {
+                    System.out.println("Carrinho vazio.");
+                }
+            } else if (opcao == 4) {
+                if (carrinhoAtual != null) {
+                    carrinhoAtual.calcularTotal();
+                    pedidos[pedidoCount] = carrinhoAtual;
+                    pedidoCount++;
+                    System.out.println("Pedido finalizado com sucesso!");
+                    carrinhoAtual = null;
+                } else {
+                    System.out.println("Carrinho vazio.");
+                }
+            } else if (opcao == 5) {
+                System.out.println("Status do pedido: Aguarde o processamento");
+            } else if (opcao == 6) {
+                System.out.println("Saindo...");
+                break;
+            } else {
+                System.out.println("Opção inválida.");
+            }
+        }
+        scanner.close();
+    }
+}
