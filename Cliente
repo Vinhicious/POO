@@ -2,7 +2,6 @@ package com.mycompany.sistemagerenciamentopedidos;
 
 import java.util.Scanner;
 
-// Classe Cliente
 class Cliente {
     String nome;
     String endereco;
@@ -26,7 +25,6 @@ class Cliente {
     }
 }
 
-// Classe ItemMenu
 class ItemMenu {
     String nome;
     String categoria;
@@ -45,7 +43,6 @@ class ItemMenu {
     }
 }
 
-// Classe Pedido
 class Pedido {
     ItemMenu[] itens;
     Cliente cliente;
@@ -93,7 +90,6 @@ class Pedido {
     }
 }
 
-// Classe principal
 public class SistemaGerenciamentoPedidos {
     static Cliente[] clientes = new Cliente[10];
     static ItemMenu[] menu = new ItemMenu[10];
@@ -105,7 +101,6 @@ public class SistemaGerenciamentoPedidos {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Adicionar itens ao menu
         menu[0] = new ItemMenu("Pizza Margherita", "Pizza", 25.00);
         menu[1] = new ItemMenu("Hambúrguer", "Sanduíche", 15.00);
         menu[2] = new ItemMenu("Salada Caesar", "Salada", 12.00);
