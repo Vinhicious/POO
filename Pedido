@@ -1,0 +1,46 @@
+class Pedido {
+    ItemMenu[] itens;
+    Cliente cliente;
+    double total;
+    String status;
+    int itemCount;
+
+    Pedido(Cliente cliente) {
+        this.cliente = cliente;
+        this.itens = new ItemMenu[10]; // Supondo um máximo de 10 itens por pedido
+        this.total = 0.0;
+        this.status = "Em preparação";
+        this.itemCount = 0;
+    }
+
+    void adicionarItem(ItemMenu item) {
+        if (itemCount < itens.length) {
+            itens[itemCount] = item;
+            itemCount++;
+            total += item.preco;
+        } else {
+            System.out.println("Não é possível adicionar mais itens ao pedido.");
+        }
+    }
+
+    void calcularTotal() {
+        total = 0.0;
+        for (int i = 0; i < itemCount; i++) {
+            total += itens[i].preco;
+        }
+    }
+
+    void atualizarStatus(String novoStatus) {
+        this.status = novoStatus;
+    }
+
+    void visualizarPedido() {
+        System.out.println("Cliente: " + cliente.nome);
+        System.out.println("Itens do pedido:");
+        for (int i = 0; i < itemCount; i++) {
+            System.out.println("- " + itens[i].nome + " (" + itens[i].categoria + "): R$" + itens[i].preco);
+        }
+        System.out.println("Total: R$" + total);
+        System.out.println("Status: " + status);
+    }
+}
