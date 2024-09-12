@@ -1,0 +1,17 @@
+class ItemMenu {
+    String nome;
+    String categoria;
+    double preco;
+
+    ItemMenu(String nome, String categoria, double preco) {
+        this.nome = nome;
+        this.categoria = categoria;
+        this.preco = preco;
+    }
+
+    void getDetalhesItem() {
+        System.out.println("Nome: " + nome);
+        System.out.println("Categoria: " + categoria);
+        System.out.println("Preço: R$" + preco);
+    }
+}
